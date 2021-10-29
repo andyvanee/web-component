@@ -1,0 +1,25 @@
+:host {
+    display: inline-block;
+    user-select: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"] + .state {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 2px solid #ddd;
+    border-radius: 2px;
+}
+
+input[type="checkbox"]:checked + .state {
+    border-color: blue;
+    background-color: aqua;
+}
