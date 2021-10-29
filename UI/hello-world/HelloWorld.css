@@ -3,7 +3,7 @@
 }
 
 h1 {
-    color: red;
+    color: var(--ui-link-color, #888);
 }
 
 .uuid {

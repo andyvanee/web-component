@@ -1,9 +1,21 @@
+:root {
+    --container-width: 767px;
+    --container-padding: 2rem;
+    --ui-link-color: #706060;
+    --ui-primary-color: #303090;
+    --ui-secondary-color: #6666ff;
+}
+
 body {
-    background-color: #eee;
+    background-color: #e8e8e0;
     font-family: Helvetica, sans-serif;
 }
 
-h1 {
-    color: blue;
-    background-color: pink;
+body > main {
+    padding: var(--container-padding, 0);
+    margin: 0 auto;
+    max-width: var(--container-width, 1200px);
+    background-color: #fafaf8;
+    min-height: 80vh;
+    box-sizing: border-box;
 }

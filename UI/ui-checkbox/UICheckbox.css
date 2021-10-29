@@ -20,6 +20,6 @@ input[type="checkbox"] + .state {
 }
 
 input[type="checkbox"]:checked + .state {
-    border-color: blue;
-    background-color: aqua;
+    border-color: var(--ui-primary-color, #0000dd);
+    background-color: var(--ui-secondary-color, #6666ff);
 }
