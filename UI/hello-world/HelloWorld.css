@@ -5,3 +5,8 @@
 h1 {
     color: red;
 }
+
+.uuid {
+    font-family: monospace;
+    font-size: 0.8rem;
+}

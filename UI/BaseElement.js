@@ -1,8 +1,30 @@
+import { mongoid } from "../lib/uuid.js"
+
 class Registry {
+    #versionid = mongoid()
+    #cacheKey = "component-fcache"
+
     constructor() {
         this.components = new Set()
         this.fragments = {}
         this.templates = new Map()
+        this.registry = new Map()
+    }
+
+    set version(versionid) {
+        const fcache = JSON.parse(
+            window.localStorage.getItem(this.#cacheKey) || "{}"
+        )
+        if (fcache[versionid]) {
+            this.fragments = fcache[versionid]
+        } else {
+            this.fragments = {}
+        }
+        this.#versionid = versionid
+    }
+
+    get version() {
+        return this.#versionid
     }
 
     /**
@@ -16,6 +38,12 @@ class Registry {
         if (!this.fragments[key]) {
             try {
                 this.fragments[key] = await (await fetch(url)).text()
+                window.localStorage.setItem(
+                    this.#cacheKey,
+                    JSON.stringify({
+                        [this.version]: this.fragments
+                    })
+                )
             } catch (err) {
                 this.fragments[key] = ""
             }
@@ -68,7 +96,7 @@ export class BaseElement extends HTMLElement {
     constructor() {
         super()
         const template = registry.template(this.constructor)
-        if (!template) throw `No template for element`
+        if (!template) throw new Error(`No template for element`)
         this.root = this.createRenderRoot()
         this.root.appendChild(template.content.cloneNode(true))
     }
@@ -118,7 +146,7 @@ export class BaseElement extends HTMLElement {
      * @param {function} handler
      */
     once(type, handler) {
-        const h = ev => {
+        const h = (ev) => {
             this.off(type, h)
             handler(ev)
         }
